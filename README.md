@@ -5,7 +5,9 @@ This is a our short coding challenge in Angular to get some more insights about 
 
 > Our focus: We're looking for code that is **clean**, **readable** and **maintainable**. 
 
-If you have any questions feel free to contact us via joachim.roppert@time-matters.com.
+If you have any questions feel free to contact us:
+- Joachim / joachim.roppert@time-matters.com
+- Sascha / sascha.kurr@time-matters.com
 
 # The task
 
