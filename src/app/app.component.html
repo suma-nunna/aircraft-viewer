@@ -1,0 +1,121 @@
+<div class="container">
+  <h1>Aircraft Search</h1>
+  <form (ngSubmit)="onSubmit()">
+    <mat-radio-group [(ngModel)]="searchType" name="searchType">
+      <mat-radio-button value="aircraft"
+        >Search by Registration</mat-radio-button
+      >
+      <mat-radio-button value="callsign">Search by Callsign</mat-radio-button>
+    </mat-radio-group>
+    <mat-form-field>
+      <mat-label>Enter values (comma-separated)</mat-label>
+      <input
+        matInput
+        [(ngModel)]="queries"
+        name="queries"
+        placeholder="e.g., N12345, N54321 or UAL123, DAL456"
+      />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Search</button>
+  </form>
+
+  @if (loading()) {
+  <mat-spinner></mat-spinner>
+  }
+
+  <div class="results">
+    @for (result of results(); track result.query) {
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ result.query }} ({{ result.type }})</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        @if (result.error) {
+        <p class="error">{{ result.error }}</p>
+        } 
+        @if(aircraftResults) { 
+          @for (aircraft of aircraftResults; track aircraft.data) {
+            <p>{{aircraft.data?.registered_owner_country_name}}</p>
+          } 
+        } 
+        
+        @if(flightRouteResults) { 
+          @for (flightRoute of flightRouteResults; track flightRoute.type) {
+            <p>
+              {{ flightRoute | json }}
+            </p>
+          } 
+        }
+      </mat-card-content>
+    </mat-card>
+    }
+  </div>
+</div>
+
+<!-- @if(result.type === 'aircraft') { @let aircraft = result.data as Aircraft;
+        <p>{{aircraft?.manufacturer}}</p>
+        } @if(result.type === 'callsign') { @let airRouting = result.data as FlightRoute;
+         <p>{{airRouting?.callsign_iata}}</p>
+        } -->
+
+<!-- @if (result.type === 'aircraft') {
+        <p>{{ result.data?.registered_owner_country_name }}</p>
+        } 
+        
+        @if (result.type === 'callsign') {
+        <p>{{ result.data?.destination?.name }}</p>
+        } -->
+
+<!-- @else { @if (result.type === 'aircraft') {
+        <p>{{ result.data | json }}</p>
+        <p>{{ result.data?.registered_owner_country_name }}</p>
+        } } -->
+
+<!-- @else { @if (result.type === 'aircraft') { @if
+        (result.data?.url_photo) {
+        <img
+          [src]="result.data?.url_photo"
+          alt="Aircraft Photo"
+          class="photo"
+        />
+        }
+        <mat-list>
+          <mat-list-item>Type: {{ result.data?.type }}</mat-list-item>
+          <mat-list-item
+            >Manufacturer: {{ result.data?.manufacturer }}</mat-list-item
+          >
+          <mat-list-item
+            >Registration: {{ result.data?.registration }}</mat-list-item
+          >
+          <mat-list-item
+            >Owner: {{ result.data?.registered_owner }}</mat-list-item
+          >
+          <mat-divider></mat-divider>
+        </mat-list>
+        } @else {
+        <mat-list>
+          <mat-list-item>Callsign: {{ result.data?.callsign }}</mat-list-item>
+          <mat-list-item
+            >Airline: {{ result.data?.airline?.name || "N/A" }}</mat-list-item
+          >
+          <mat-list-item
+            >Origin: {{ result.data?.origin.name }} ({{
+              result.data?.origin.iata_code
+            }})</mat-list-item
+          >
+          <mat-list-item
+            >Destination: {{ result.data?.destination.name }} ({{
+              result.data?.destination.iata_code
+            }})</mat-list-item
+          >
+          @if (result.data?.midpoint) {
+          <mat-list-item
+            >Midpoint: {{ result.data?.midpoint.name }} ({{
+              result.data??.midpoint.iata_code
+
+            }})</mat-list-item
+          >
+          }
+          <mat-divider></mat-divider>
+        </mat-list>
+        } } -->
