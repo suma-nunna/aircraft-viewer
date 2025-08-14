@@ -33,6 +33,7 @@ type SearchType = 'aircraft' | 'callsign';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  // Injects the NgRx store for state management.
   private store = inject(Store);
 
   searchType: SearchType = 'aircraft';
@@ -42,11 +43,20 @@ export class AppComponent {
   loading = toSignal(this.store.select(selectLoading), { initialValue: false });
   results = toSignal(this.store.select(selectResults), { initialValue: [] });
 
+  /**
+   * switching between 'aircraft' and 'callsign'
+   * @param newType The new search type ('aircraft' or 'callsign').
+   */
   onSearchTypeChange(newType: 'aircraft' | 'callsign') {
     this.searchType = newType;
     this.store.dispatch(AircraftActions.clearSearch());
   }
 
+  /**
+   * Submitting of query(search)
+   * Processes the input queries, removes duplicates, and search.
+   * Clears the input field after submission.
+   */
   onSubmit() {
     console.log('Submitting search:', this.searchType, this.queries);
     this.searchValue = this.searchType;
@@ -65,6 +75,9 @@ export class AppComponent {
     this.queries = ''; // clear input
   }
 
+  /**
+   * Getter is used to filter the results to include only those with the search type, which we will use in the UI.
+   */
   get aircraftResults() {
     return this.results().filter((result) => result.type === 'aircraft');
   }

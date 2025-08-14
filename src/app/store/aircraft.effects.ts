@@ -5,6 +5,11 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { forkJoin, of } from 'rxjs';
 import { Aircraft, AircraftActions, AircraftResults, FlightRouteResults, Result } from './aircraft.actions';
 
+
+/**
+ * Interface for the API response structure.
+ * Contains a nested 'response' object that include aircraft or flightroute data
+ */
 interface ApiResponse {
   response: {
     aircraft?: import('./aircraft.actions').Aircraft;
@@ -12,6 +17,12 @@ interface ApiResponse {
   };
 }
 
+
+/**
+ * NgRx Effects class for API calls in response to dispatched actions, search related side effects.
+ * BAse_URL for ADSBDB API endpoints.
+ * createEffect: performs API requests for each query, handle success & error responses
+ */
 @Injectable()
 export class AircraftEffects {
   private actions$ = inject(Actions);
@@ -54,6 +65,8 @@ export class AircraftEffects {
               )
             )
         );
+
+        // Use forkJoin to wait for all observables to complete and collect results.
         return forkJoin(observables).pipe(
           map((results: Result[]) => 
             AircraftActions.searchSuccess({ results })
@@ -63,11 +76,3 @@ export class AircraftEffects {
     )
   );
 }
-
-
-//  query,
-//                 data:
-//                   searchType === 'aircraft'
-//                     ? res.response.aircraft
-//                     : res.response.flightroute,
-//                 type: searchType,

@@ -1,5 +1,10 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
+
+/**
+ * Actions are used to trigger searches, handle successful responses, and clear search results.
+ * used union type to restricts the searchType property to one of two possible string values: 'aircraft' or 'callsign'
+ */ 
 export const AircraftActions = createActionGroup({
   source: 'Aircraft',
   events: {
@@ -11,6 +16,11 @@ export const AircraftActions = createActionGroup({
 
 export const { search, searchSuccess, clearSearch } = AircraftActions;
 
+
+/**
+ * AircraftResults, FlightRouteResults - Interface representing the result of an aircraft search query.
+ * Includes the original query, type, data if successful, or an error message.
+ */
 export interface AircraftResults {
   query: string;
   type: 'aircraft';
@@ -27,18 +37,10 @@ export interface FlightRouteResults {
 
 export type Result = AircraftResults | FlightRouteResults;
 
-// original
-// export interface Result {
-//   query: string;
-//   type: 'aircraft' | 'callsign';
-//   data?: Aircraft | FlightRoute;
-//   error?: string;
-// }
 
-// export type Result =
-//   | { query: string; type: 'aircraft'; data: Aircraft; error?: string }
-//   | { query: string; type: 'callsign'; data: FlightRoute; error?: string };
-
+/**
+ * Interface for aircraft details retrieved from a search.
+ */
 export interface Aircraft {
   type: string;
   icao_type: string;
@@ -53,6 +55,9 @@ export interface Aircraft {
   url_photo_thumbnail: string | null;
 }
 
+/**
+ * Interface for flight route details based on a callsign.
+ */
 export interface FlightRoute {
   callsign: string;
   callsign_icao: string | null;
