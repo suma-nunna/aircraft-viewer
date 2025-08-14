@@ -1,14 +1,15 @@
-import { createActionGroup, props } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 export const AircraftActions = createActionGroup({
   source: 'Aircraft',
   events: {
     search: props<{ searchType: 'aircraft' | 'callsign'; queries: string[] }>(),
     searchSuccess: props<{ results: Result[] }>(),
+    clearSearch: emptyProps()
   },
 });
 
-export const { search, searchSuccess } = AircraftActions;
+export const { search, searchSuccess, clearSearch } = AircraftActions;
 
 export interface AircraftResults {
   query: string;

@@ -11,7 +11,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { selectLoading, selectResults } from './store/aircraft.selectors';
-import { search } from './store/aircraft.actions';
+import { AircraftActions, search } from './store/aircraft.actions';
 
 type SearchType = 'aircraft' | 'callsign';
 
@@ -30,55 +30,39 @@ type SearchType = 'aircraft' | 'callsign';
     MatDividerModule,
   ],
   templateUrl: './app.component.html',
-  styles: [
-    `
-      .container {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-      }
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-      .results {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 16px;
-        margin-top: 20px;
-      }
-      .photo {
-        max-width: 100%;
-        height: auto;
-        margin-bottom: 16px;
-      }
-      .error {
-        color: red;
-      }
-    `,
-  ],
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   private store = inject(Store);
 
   searchType: SearchType = 'aircraft';
+  searchValue = 'aircraft';
   queries = '';
 
   loading = toSignal(this.store.select(selectLoading), { initialValue: false });
   results = toSignal(this.store.select(selectResults), { initialValue: [] });
 
+  onSearchTypeChange(newType: 'aircraft' | 'callsign') {
+    this.searchType = newType;
+    this.store.dispatch(AircraftActions.clearSearch());
+  }
+
   onSubmit() {
     console.log('Submitting search:', this.searchType, this.queries);
+    this.searchValue = this.searchType;
     if (!this.queries.trim()) return;
-    const queryList = this.queries
-      .split(',')
-      .map((q) => q.trim())
-      .filter((q) => q);
+    const queryList = Array.from(
+      new Set(
+        this.queries
+          .split(',')
+          .map((q) => q.trim())
+          .filter((q) => q)
+      )
+    );
     this.store.dispatch(
       search({ searchType: this.searchType, queries: queryList })
     );
-    this.queries = ''; // Optional: clear input
+    this.queries = ''; // clear input
   }
 
   get aircraftResults() {

@@ -32,3 +32,10 @@ Don't get lost by moving the visuals in a perfect way with perfect colors.
 Focus on the core.
 And enjoy!
 
+### API calls
+* Aircraft: https://api.adsbdb.com/v0/aircraft/[MODE_S || REGISTRATION]
+  * "mode_s": A7A41D, 3829A8, A97A36
+  * "registration": N59142, F-BKNI, N71FE
+
+* Callsign: https://api.adsbdb.com/v0/callsign/[CALLSIGN]
+  * "callsign": TAI567, EVA6606, SVA2400

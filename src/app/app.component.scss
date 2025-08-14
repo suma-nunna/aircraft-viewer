@@ -1,0 +1,50 @@
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+.photo {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 16px;
+}
+.error {
+  color: red;
+}
+
+.example-card {
+  max-width: 400px;
+  margin-bottom: 8px;
+}
+
+.title-group {
+  align-items: center;
+  text-align: center;
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // height: 100vh;
+  }
+
+[matListItemTitle] {
+  font-weight: bold;
+  color: #3b3bbc;
+}
+
+.txt_center {
+  text-align: center;
+}
