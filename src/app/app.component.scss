@@ -37,7 +37,6 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
-    // height: 100vh;
   }
 
 [matListItemTitle] {
@@ -47,4 +46,33 @@ form {
 
 .txt_center {
   text-align: center;
+}
+
+
+.flip-scale-down {
+  animation: flip-scale-down 0.3s ease forwards;
+}
+
+@keyframes flip-scale-down {
+  0% {
+    transform: scale(1) rotate3d(-1, 1, 0, -100deg);
+  }
+  100% {
+    transform: scale(1) rotate3d(-1, 1, 0, 0deg);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.fadeInUp-animation {
+  animation: 1.5s fadeInUp;
 }

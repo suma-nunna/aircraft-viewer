@@ -24,7 +24,7 @@
   <div class="results">
     @if (searchValue === 'aircraft' && aircraftResults.length > 0) { @for
     (aircraft of aircraftResults; track aircraft.query) {
-    <mat-card class="example-card" appearance="outlined">
+    <mat-card class="example-card flip-scale-down " appearance="outlined">
       <mat-card-header>
         <mat-card-title-group class="title-group">
           <mat-card-title>{{ aircraft.query }}</mat-card-title>
@@ -56,7 +56,7 @@
     } } @else if (searchValue === 'callsign' && flightRouteResults.length > 0) {
     @for(flightRoute of flightRouteResults; track flightRoute.query) {
 
-    <mat-card class="example-card" appearance="outlined">
+    <mat-card class="example-card fadeInUp-animation" appearance="outlined">
       <mat-card-header>
         <mat-card-title>{{ flightRoute.query }}</mat-card-title>
       </mat-card-header>
@@ -98,77 +98,4 @@
   </div>
 
   }
-
-  <!-- <div class="results">
-    @for (result of results(); track result.query) {
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>{{ result.query }} ({{ result.type }})</mat-card-title>
-        <p>{{ result | json }}</p>
-      </mat-card-header>
-      <mat-card-content>
-        @if (result.error) {
-        <p class="error">{{ result.error }}</p>
-        } @if(aircraftResults) { @for (aircraft of aircraftResults; track
-        aircraft.data) {
-        <p>{{ aircraft | json }}</p>
-        } } @if(flightRouteResults) { @for (flightRoute of flightRouteResults;
-        track flightRoute.type) {
-        <p>
-          {{ flightRoute | json }}
-        </p>
-        } }
-      </mat-card-content>
-    </mat-card>
-    }
-  </div> -->
 </div>
-
-<!-- @else { @if (result.type === 'aircraft') { @if
-        (result.data?.url_photo) {
-        <img
-          [src]="result.data?.url_photo"
-          alt="Aircraft Photo"
-          class="photo"
-        />
-        }
-        <mat-list>
-          <mat-list-item>Type: {{ result.data?.type }}</mat-list-item>
-          <mat-list-item
-            >Manufacturer: {{ result.data?.manufacturer }}</mat-list-item
-          >
-          <mat-list-item
-            >Registration: {{ result.data?.registration }}</mat-list-item
-          >
-          <mat-list-item
-            >Owner: {{ result.data?.registered_owner }}</mat-list-item
-          >
-          <mat-divider></mat-divider>
-        </mat-list>
-        } @else {
-        <mat-list>
-          <mat-list-item>Callsign: {{ result.data?.callsign }}</mat-list-item>
-          <mat-list-item
-            >Airline: {{ result.data?.airline?.name || "N/A" }}</mat-list-item
-          >
-          <mat-list-item
-            >Origin: {{ result.data?.origin.name }} ({{
-              result.data?.origin.iata_code
-            }})</mat-list-item
-          >
-          <mat-list-item
-            >Destination: {{ result.data?.destination.name }} ({{
-              result.data?.destination.iata_code
-            }})</mat-list-item
-          >
-          @if (result.data?.midpoint) {
-          <mat-list-item
-            >Midpoint: {{ result.data?.midpoint.name }} ({{
-              result.data??.midpoint.iata_code
-
-            }})</mat-list-item
-          >
-          }
-          <mat-divider></mat-divider>
-        </mat-list>
-        } } -->
